@@ -27,22 +27,22 @@ public class Users {
     public Users() {
     }
 
-    public Roles getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Roles roles) {
-        this.roles = roles;
-    }
-
-    public Users(Long id, String username, String password, Integer verificationCode,Roles roles) {
+    public Users(Long id, String username, String password, Integer verificationCode, Roles roles) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.verificationCode = verificationCode;
-        this.roles=roles;
+        this.roles = roles;
     }
 
+    public Users(Long id, String username, String password, Integer verificationCode, Roles roles, String email) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.verificationCode = verificationCode;
+        this.roles = roles;
+        this.email = email;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -60,8 +60,13 @@ public class Users {
         this.verificationCode = verificationCode;
     }
 
+    public Roles getRoles() {
+        return roles;
+    }
 
-
+    public void setRoles(Roles roles) {
+        this.roles = roles;
+    }
 
     public Long getId() {
         return id;

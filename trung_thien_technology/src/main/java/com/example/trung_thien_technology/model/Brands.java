@@ -1,18 +1,21 @@
 package com.example.trung_thien_technology.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class ProductType {
+@Table(name = "brand")
+public class Brands {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String name;
 
-    public ProductType() {
+    public Brands() {
+    }
+
+    public Brands(Integer id) {
+        this.id = id;
     }
 
     public Integer getId() {
