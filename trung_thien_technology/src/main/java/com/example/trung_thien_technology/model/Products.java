@@ -31,9 +31,6 @@ public class Products {
     private ProductTypes productType;
 
     private Integer quantity;
-    @ManyToOne
-    @JoinColumn(name = "image_id")
-    private Images image;
 
     @CreationTimestamp
     @Column(name = "create_time", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT now()")
@@ -102,14 +99,6 @@ public class Products {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-    }
-
-    public Images getImage() {
-        return image;
-    }
-
-    public void setImage(Images image) {
-        this.image = image;
     }
 
     public LocalDateTime getCreateTime() {

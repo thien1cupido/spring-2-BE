@@ -1,9 +1,6 @@
 package com.example.trung_thien_technology.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Images {
@@ -11,6 +8,9 @@ public class Images {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Products products;
     private String url;
 
     public Images() {
