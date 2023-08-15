@@ -10,18 +10,21 @@ import java.time.LocalDateTime;
 public class Customers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(nullable = false,length = 50)
+    private Integer id;
+    @Column(nullable = false, length = 50)
     private String name;
     @Column(nullable = false)
     private String birthday;
     private int gender;
-    @Column(nullable = false,unique = true,length = 10)
+    @Column(nullable = false, unique = true, length = 10)
     private String phoneNumber;
-    @Column(nullable = false,unique = true,length = 50)
+    @Column(nullable = false, unique = true, length = 50)
     private String email;
     private String address;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users users;
     @Column(nullable = false)
     private String image;
     @Column(name = "create_date", columnDefinition = "DATETIME DEFAULT now()", updatable = false)
@@ -35,11 +38,19 @@ public class Customers {
     public Customers() {
     }
 
-    public Long getId() {
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -50,8 +50,8 @@ public class UsersService implements UserDetailsService, IUsersService {
 
 
     @Override
-    public Users findById(Long id) {
-        return iUserRepository.findById(id).get();
+    public Users findById(Integer id) {
+        return iUserRepository.findById(id.longValue()).get();
     }
 
 }

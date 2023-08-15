@@ -7,12 +7,12 @@ import java.util.Collection;
 
 public class JwtUserDetails implements UserDetails {
 
-    private Long id;
+    private Integer id;
     private String username;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public JwtUserDetails(Long id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    public JwtUserDetails(Integer id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -60,7 +60,7 @@ public class JwtUserDetails implements UserDetails {
         return true;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 }

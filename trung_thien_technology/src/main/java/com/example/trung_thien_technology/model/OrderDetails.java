@@ -1,5 +1,4 @@
 package com.example.trung_thien_technology.model;
-
 import javax.persistence.*;
 
 @Entity
@@ -20,6 +19,7 @@ public class OrderDetails {
     private Long price;
 
     private Integer quantity;
+
 
     public OrderDetails() {
     }

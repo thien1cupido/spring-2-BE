@@ -7,5 +7,5 @@ public interface IUsersService {
 
     Users findByEmail(String email);
 
-    Users findById(Long id);
+    Users findById(Integer id);
 }
