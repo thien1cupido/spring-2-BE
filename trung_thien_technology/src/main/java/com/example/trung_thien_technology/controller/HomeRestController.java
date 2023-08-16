@@ -1,6 +1,6 @@
 package com.example.trung_thien_technology.controller;
 
-import com.example.trung_thien_technology.model.Images;
+
 import com.example.trung_thien_technology.projection.IProductProjection;
 import com.example.trung_thien_technology.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
