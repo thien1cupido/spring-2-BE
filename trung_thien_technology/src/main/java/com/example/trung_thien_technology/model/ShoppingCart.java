@@ -9,21 +9,25 @@ public class ShoppingCart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
-    @JoinColumn(name="customer_id")
+    @JoinColumn(name = "customer_id")
     private Customers customers;
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Products products;
-    @Column(name = "quantity",nullable = false)
+    @Column(name = "quantity", nullable = false)
     private Integer quantity;
-    @Column(name = "image",nullable = false,columnDefinition = "TEXT")
-    private String image;
+
     @Column(name = "is_delete")
     private boolean isDelete;
 
     public ShoppingCart() {
     }
 
+    public ShoppingCart(Customers customers, Products products, Integer quantity) {
+        this.customers = customers;
+        this.products = products;
+        this.quantity = quantity;
+    }
 
     public Customers getCustomers() {
         return customers;
@@ -37,6 +41,9 @@ public class ShoppingCart {
         return products;
     }
 
+    public Integer getProductsId() {
+        return products.getId();
+    }
     public void setProducts(Products products) {
         this.products = products;
     }
@@ -65,13 +72,6 @@ public class ShoppingCart {
         this.quantity = quantity;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 
     public boolean isDelete() {
         return isDelete;

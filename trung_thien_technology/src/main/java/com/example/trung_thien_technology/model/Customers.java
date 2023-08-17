@@ -38,6 +38,10 @@ public class Customers {
     public Customers() {
     }
 
+    public Customers(Integer id) {
+        this.id = id;
+    }
+
     public Users getUsers() {
         return users;
     }

@@ -1,8 +1,7 @@
 package com.example.trung_thien_technology.service.impl;
 
-import com.example.trung_thien_technology.model.Images;
 import com.example.trung_thien_technology.projection.IProductProjection;
-import com.example.trung_thien_technology.repository.IImagesRepository;
+import com.example.trung_thien_technology.projection.IShoppingCartProjection;
 import com.example.trung_thien_technology.repository.IProductRepository;
 import com.example.trung_thien_technology.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +18,10 @@ public class ProductServiceImpl implements IProductService {
     @Autowired
     private IProductRepository iProductRepository;
 
-    @Autowired
-    private IImagesRepository iImagesRepository;
 
     @Override
-    public Page<IProductProjection> findAll(Pageable pageable,Integer type) {
-        return iProductRepository.findAllByIsAndDelete(pageable,type);
+    public Page<IProductProjection> findAll(Pageable pageable, Integer type) {
+        return iProductRepository.findAllByIsAndDelete(pageable, type);
     }
 
     @Override
@@ -33,12 +30,28 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public Page<IProductProjection> findAllProduct(Pageable pageable,String nameSearch) {
-        return iProductRepository.findAllProduct(pageable,nameSearch);
+    public Page<IProductProjection> findAllProduct(Pageable pageable, String nameSearch) {
+        return iProductRepository.findAllProduct(pageable, nameSearch);
+    }
+
+    @Override
+    public Page<IShoppingCartProjection> findAllProductAdmin(Pageable pageable,String nameSearch) {
+        return iProductRepository.findAllProductAdmin(pageable, nameSearch);
     }
 
     @Override
     public Optional<IProductProjection> findProductById(Integer productId) {
         return iProductRepository.findProductById(productId);
+    }
+
+    @Override
+    public boolean deleteProductById(Integer id) {
+        try {
+            iProductRepository.deleteProductById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

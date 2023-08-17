@@ -11,6 +11,8 @@ public class Images {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Products products;
+
+    @Column(columnDefinition = "TEXT")
     private String url;
 
     public Images() {

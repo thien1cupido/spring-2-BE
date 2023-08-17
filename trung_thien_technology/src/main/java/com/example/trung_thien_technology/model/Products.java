@@ -45,6 +45,10 @@ public class Products {
     public Products() {
     }
 
+    public Products(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }
