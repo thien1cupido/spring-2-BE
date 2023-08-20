@@ -24,6 +24,13 @@ public class OrderDetails {
     public OrderDetails() {
     }
 
+    public OrderDetails(Products products, Orders orders, Long price, Integer quantity) {
+        this.products = products;
+        this.orders = orders;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
     public Integer getId() {
         return id;
     }

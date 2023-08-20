@@ -43,13 +43,17 @@ public interface IShoppingCartRepository extends JpaRepository<ShoppingCart, Int
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE shopping_cart AS sc SET sc.is_delete=true WHERE sc.is_delete=false AND sc.customer_id=:customer_id ", nativeQuery = true)
+    @Query(value = "DELETE FROM shopping_cart AS sc WHERE sc.is_delete=false AND sc.customer_id=:customer_id ", nativeQuery = true)
     void clearShoppingCartByCustomer(@Param("customer_id") Integer customerId);
 
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE shopping_cart AS sc SET sc.is_delete=true WHERE sc.is_delete=false AND sc.customer_id=:customer_id ", nativeQuery = true)
+    void orderedShoppingCartByCustomer(@Param("customer_id") Integer customerId);
 
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE shopping_cart AS sc SET sc.is_delete=true WHERE sc.is_delete=false AND sc.customer_id=:customer_id AND sc.product_id =:product_id", nativeQuery = true)
+    @Query(value = "DELETE FROM shopping_cart AS sc WHERE sc.is_delete=false AND sc.customer_id=:customer_id AND sc.product_id =:product_id", nativeQuery = true)
     void deleteShoppingCartByProduct(@Param("customer_id") Integer customerId, @Param("product_id") Integer productId);
 }

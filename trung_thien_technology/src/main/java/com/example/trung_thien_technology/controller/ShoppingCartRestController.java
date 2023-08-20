@@ -31,10 +31,6 @@ public class ShoppingCartRestController {
     private IUsersService iUsersService;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
-
-    @Autowired
-    private IProductService iProductService;
-
     @Autowired
     private ICustomerService iCustomerService;
 
