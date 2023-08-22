@@ -10,11 +10,19 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    Integer orderCode;
 
     @ManyToOne
-    @JoinColumn(name ="customer_id")
+    @JoinColumn(name = "customer_id")
     private Customers customers;
 
+    @JoinColumn(name = "payment_status", columnDefinition = "BIT DEFAULT 0")
+    private boolean paymentStatus;
+
+    private Long totalPrice;
+    @ManyToOne
+    @JoinColumn(name = "payment_type_id")
+    private PaymentTypes paymentTypes;
     @CreationTimestamp
     @Column(name = "create_time", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT now()")
     private LocalDateTime createTime;
@@ -24,6 +32,39 @@ public class Orders {
     }
 
     public Orders() {
+    }
+
+
+    public PaymentTypes getPaymentTypes() {
+        return paymentTypes;
+    }
+
+    public Integer getOrderCode() {
+        return orderCode;
+    }
+
+    public void setOrderCode(Integer orderCode) {
+        this.orderCode = orderCode;
+    }
+
+    public Long getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Long totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public void setPaymentTypes(PaymentTypes paymentTypes) {
+        this.paymentTypes = paymentTypes;
+    }
+
+    public boolean isPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(boolean paymentStatus) {
+        this.paymentStatus = paymentStatus;
     }
 
     public Integer getId() {

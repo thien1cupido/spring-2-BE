@@ -30,6 +30,8 @@ public class OrderDetails {
         this.price = price;
         this.quantity = quantity;
     }
+    
+
 
     public Integer getId() {
         return id;

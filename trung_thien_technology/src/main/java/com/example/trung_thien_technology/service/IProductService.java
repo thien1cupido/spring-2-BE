@@ -1,7 +1,9 @@
 package com.example.trung_thien_technology.service;
 
 
-import com.example.trung_thien_technology.model.Images;
+import com.example.trung_thien_technology.dto.OrderDetailDTO;
+
+import com.example.trung_thien_technology.model.Products;
 import com.example.trung_thien_technology.projection.IProductProjection;
 import com.example.trung_thien_technology.projection.IShoppingCartProjection;
 import org.springframework.data.domain.Page;
@@ -15,9 +17,11 @@ public interface IProductService {
 
     List<IProductProjection> findAllByType(Integer type);
 
+    List<Products> findAllByCustomer();
     Page<IProductProjection> findAllProduct(Pageable pageable, String nameSearch);
     Page<IShoppingCartProjection> findAllProductAdmin(Pageable pageable,String nameSearch);
     Optional<IProductProjection> findProductById(Integer productId);
 
     boolean deleteProductById(Integer id);
+    boolean checkQuantity(List<OrderDetailDTO> orderDetailDTOS);
 }

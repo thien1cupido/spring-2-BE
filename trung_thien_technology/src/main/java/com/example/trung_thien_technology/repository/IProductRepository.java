@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.parameters.P;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -67,5 +66,9 @@ public interface IProductRepository extends JpaRepository<Products, Integer> {
     @Modifying
     @Transactional
     @Query(nativeQuery = true, value = "UPDATE product AS p SET p.id_delete=true WHERE p.id=:product_id")
-    boolean deleteProductById(@Param("product_id") Integer id);
+    void deleteProductById(@Param("product_id") Integer id);
+
+
+    @Query(value = "SELECT * FROM product AS p WHERE p.quantity=0",nativeQuery = true)
+    List<Products> findAllByCustomer();
 }

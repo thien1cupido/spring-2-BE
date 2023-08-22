@@ -1,5 +1,6 @@
 package com.example.trung_thien_technology.service.impl;
 
+import com.example.trung_thien_technology.dto.OrderDetailDTO;
 import com.example.trung_thien_technology.dto.ShoppingCartDTO;
 import com.example.trung_thien_technology.model.Customers;
 import com.example.trung_thien_technology.model.Products;
@@ -48,12 +49,6 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
     public void clearShoppingCart(Integer customerId) {
         this.iShoppingCartRepository.clearShoppingCartByCustomer(customerId);
     }
-
-    @Override
-    public void orderProduct(Integer customerId) {
-        this.iShoppingCartRepository.orderedShoppingCartByCustomer(customerId);
-    }
-
     @Override
     public List<IShoppingCartProjection> findAllShoppingCartByCustomer(Integer id) {
         return iShoppingCartRepository.findShoppingCartByCustomer(id);

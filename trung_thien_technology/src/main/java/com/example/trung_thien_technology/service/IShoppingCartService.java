@@ -18,8 +18,6 @@ public interface IShoppingCartService {
 
     void clearShoppingCart(Integer customerId);
 
-    void orderProduct(Integer customerId);
-
 
     List<IShoppingCartProjection> findAllShoppingCartByCustomer(Integer id);
 }
