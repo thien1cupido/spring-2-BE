@@ -19,7 +19,7 @@ public class Products {
     private String name;
 
     private Long price;
-
+    @Column(columnDefinition = "TEXT")
     private String descriptions;
 
     @ManyToOne

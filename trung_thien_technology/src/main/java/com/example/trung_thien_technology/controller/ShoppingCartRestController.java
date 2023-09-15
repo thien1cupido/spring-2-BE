@@ -38,7 +38,7 @@ public class ShoppingCartRestController {
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     public ResponseEntity<List<IShoppingCartProjection>> getAllShoppingCart(HttpServletRequest httpServletRequest) {
         String header = httpServletRequest.getHeader("Authorization");
-        if (!header.equals("") && header.startsWith("Bearer ")) {
+        if (header.startsWith("Bearer ")) {
             String token = header.substring(7);
             String username = jwtTokenUtil.getUsernameFromToken(token);
             Users users = iUsersService.findByUsername(username);
@@ -53,7 +53,7 @@ public class ShoppingCartRestController {
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     public ResponseEntity<List<IShoppingCartProjection>> saveShoppingCart(HttpServletRequest httpServletRequest, @RequestBody List<ShoppingCartDTO> shoppingCartDTO) {
         String header = httpServletRequest.getHeader("Authorization");
-        if (!header.equals("") && header.startsWith("Bearer ")) {
+        if (header.startsWith("Bearer ")) { 
             String token = header.substring(7);
             String username = jwtTokenUtil.getUsernameFromToken(token);
             Users users = iUsersService.findByUsername(username);

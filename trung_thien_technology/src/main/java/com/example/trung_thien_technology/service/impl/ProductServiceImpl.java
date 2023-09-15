@@ -43,19 +43,19 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public Page<IShoppingCartProjection> findAllProductAdmin(Pageable pageable, String nameSearch) {
-        return iProductRepository.findAllProductAdmin(pageable, nameSearch);
+    public Page<IProductProjection> findAllProductAdmin(Pageable pageable) {
+        return this.iProductRepository.findAllProductAdmin(pageable);
     }
 
     @Override
     public Optional<IProductProjection> findProductById(Integer productId) {
-        return iProductRepository.findProductById(productId);
+        return this.iProductRepository.findProductById(productId);
     }
 
     @Override
     public boolean deleteProductById(Integer id) {
         try {
-            iProductRepository.deleteProductById(id);
+            this.iProductRepository.deleteProductById(id);
         } catch (Exception e) {
             e.printStackTrace();
             return false;

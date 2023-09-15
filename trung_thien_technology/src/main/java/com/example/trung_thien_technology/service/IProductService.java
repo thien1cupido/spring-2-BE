@@ -5,7 +5,7 @@ import com.example.trung_thien_technology.dto.OrderDetailDTO;
 
 import com.example.trung_thien_technology.model.Products;
 import com.example.trung_thien_technology.projection.IProductProjection;
-import com.example.trung_thien_technology.projection.IShoppingCartProjection;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -19,7 +19,7 @@ public interface IProductService {
 
     List<Products> findAllByCustomer();
     Page<IProductProjection> findAllProduct(Pageable pageable, String nameSearch);
-    Page<IShoppingCartProjection> findAllProductAdmin(Pageable pageable,String nameSearch);
+    Page<IProductProjection> findAllProductAdmin(Pageable pageable);
     Optional<IProductProjection> findProductById(Integer productId);
 
     boolean deleteProductById(Integer id);

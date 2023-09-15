@@ -1,12 +1,16 @@
 package com.example.trung_thien_technology.projection;
 
 public interface IProductProjection {
-    String getId();
+
+    Integer getId();
 
     String getName();
 
-    String getPrice();
+    Long getPrice();
+
+    Integer getQuantity();
 
     String getImage();
 
+    String getDescription();
 }

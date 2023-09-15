@@ -20,15 +20,15 @@ public class HomeRestController {
     @Autowired
     private IProductService iProductService;
 
-    @GetMapping("/list/PC")
-    public ResponseEntity<List<IProductProjection>> getAllPC() {
-        List<IProductProjection> products = iProductService.findAllByType(1);
+        @GetMapping("/list-product")
+    public ResponseEntity<List<IProductProjection>> getAllPC(@RequestParam("type")Integer type) {
+        List<IProductProjection> products = iProductService.findAllByType(type);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @GetMapping("/list")
     public ResponseEntity<Page<IProductProjection>> getAllProduct(@RequestParam(value = "page", defaultValue = "0") Integer page,@RequestParam("nameSearch")String nameSearch) {
-        Page<IProductProjection> products = iProductService.findAllProduct(PageRequest.of(page, 25),nameSearch);
+        Page<IProductProjection> products = iProductService.findAllProduct(PageRequest.of(page, 15),nameSearch);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
@@ -37,5 +37,4 @@ public class HomeRestController {
         Optional<IProductProjection> products = iProductService.findProductById(id);
         return products.map(iProductProjection -> new ResponseEntity<>(iProductProjection, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
-
 }

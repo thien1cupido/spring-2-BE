@@ -28,8 +28,6 @@ public class OrderServiceImpl implements IOrderService {
     @Autowired
     private IOrderRepository iOrderRepository;
     @Autowired
-    private IOrderDetailService iOrderDetailService;
-    @Autowired
     private EmailService emailService;
 
     @Override
@@ -49,17 +47,20 @@ public class OrderServiceImpl implements IOrderService {
         }
         Orders orders = new Orders(customers);
         orders.setOrderCode(orderCode);
+        PaymentTypes paymentTypes = new PaymentTypes();
+        paymentTypes.setId(1);
+        orders.setPaymentTypes(paymentTypes);
         orders.setTotalPrice(totalPrice);
         this.iOrderRepository.save(orders);
         for (OrderDetailDTO orderDetailDTO : orderDetailDTOS) {
             this.iOrderDetailRepository.save(new OrderDetails(new Products(orderDetailDTO.getId()), orders, orderDetailDTO.getPrice(), orderDetailDTO.getQuantity()));
+            this.iProductRepository.updateQuantityById(orderDetailDTO.getTotalQuantity()-orderDetailDTO.getQuantity(),orderDetailDTO.getId());
         }
         String to = customers.getEmail();
-        System.out.println(to);
         String subject = "Bạn có đơn hàng từ Trung Thiện Technology";
         String body = "<h6>Chào " + customers.getName() + ",</p>\n" +
                 "\n" +
-                "<p>Chúng tôi gửi mail này để xác nhận rằng bạn vừa thanh toán một đơn hàng thành công từ rung Thiện Technology </p>\n" +
+                "<p>Chúng tôi gửi mail này để xác nhận rằng bạn vừa đặt hàng thành công từ Trung Thiện Technology </p>\n" +
                 "\n" +
                 "<p>Đây là mã đơn hàng của bạn của bạn: OD-" + orderCode + "</p>\n";
 
@@ -90,12 +91,13 @@ public class OrderServiceImpl implements IOrderService {
         this.iOrderRepository.save(orders);
         for (OrderDetailDTO orderDetailDTO : orderDetailDTOS) {
             this.iOrderDetailRepository.save(new OrderDetails(new Products(orderDetailDTO.getId()), orders, orderDetailDTO.getPrice(), orderDetailDTO.getQuantity()));
+            this.iProductRepository.updateQuantityById(orderDetailDTO.getTotalQuantity()-orderDetailDTO.getQuantity(),orderDetailDTO.getId());
         }
         String to = customers.getEmail();
         String subject = "Bạn có đơn hàng từ Trung Thiện Technology";
         String body = "<h6>Chào " + customers.getName() + ",</p>\n" +
                 "\n" +
-                "<p>Chúng tôi gửi mail này để xác nhận rằng bạn vừa thanh toán một đơn hàng thành công từ rung Thiện Technology </p>\n" +
+                "<p>Chúng tôi gửi mail này để xác nhận rằng bạn vừa thanh toán một đơn hàng thành công từ Trung Thiện Technology </p>\n" +
                 "\n" +
                 "<p>Đây là mã đơn hàng của bạn của bạn: OD-" + orderCode + "</p>\n";
 

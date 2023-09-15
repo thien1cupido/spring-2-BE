@@ -9,10 +9,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
+
 
 public interface IShoppingCartRepository extends JpaRepository<ShoppingCart, Integer> {
-    @Query(value = "SELECT p.id AS id, p.name AS name, p.price AS price, sc.quantity AS quantity,i.url AS image \n" +
+    @Query(value = "SELECT p.id AS id, p.name AS name, p.price AS price, sc.quantity AS quantity,p.quantity AS totalQuantity,i.url AS image \n" +
             "            FROM shopping_cart AS sc" +
             " INNER JOIN product AS p ON p.id = sc.product_id" +
             "        INNER JOIN images AS i on p.id = i.product_id\n" +

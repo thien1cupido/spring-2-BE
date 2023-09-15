@@ -4,11 +4,19 @@ public class OrderDetailDTO  {
     private Integer id;
     private Integer quantity;
     private Long price;
+    private Integer totalQuantity;
 
 
     public OrderDetailDTO() {
     }
 
+    public Integer getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(Integer totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
     public Integer getId() {
         return id;
     }

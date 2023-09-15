@@ -6,9 +6,11 @@ public interface IShoppingCartProjection {
 
     String getName();
 
-    Integer getPrice();
+    Long getPrice();
 
     Integer getQuantity();
+
+    Integer getTotalQuantity();
 
     String getImage();
 }

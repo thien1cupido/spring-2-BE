@@ -39,35 +39,35 @@ public class OrderRestController {
     private IOrderService iOrderService;
 
 
-    @PostMapping("/save-order-by-paypal")
-    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    @Transactional
-    public ResponseEntity<?> saveOrderByPayPal(HttpServletRequest httpServletRequest, @RequestBody List<OrderDetailDTO> orderDetailDTOS) {
-        String header = httpServletRequest.getHeader("Authorization");
-        if (!header.equals("") && header.startsWith("Bearer ")) {
-            String token = header.substring(7);
-            String username = jwtTokenUtil.getUsernameFromToken(token);
-            Users users = iUsersService.findByUsername(username);
-            Customers customer = iCustomerService.getCustomerByUserId(users.getId()).get();
-            boolean check = iProductService.checkQuantity(orderDetailDTOS);
-            if (check) {
+        @PostMapping("/save-order-by-paypal")
+        @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+        @Transactional
+        public ResponseEntity<?> saveOrderByPayPal(HttpServletRequest httpServletRequest, @RequestBody List<OrderDetailDTO> orderDetailDTOS) {
+            String header = httpServletRequest.getHeader("Authorization");
+            if (header.startsWith("Bearer ")) {
+                String token = header.substring(7);
+                String username = jwtTokenUtil.getUsernameFromToken(token);
+                Users users = iUsersService.findByUsername(username);
+                Customers customer = iCustomerService.getCustomerByUserId(users.getId()).get();
+                boolean check = iProductService.checkQuantity(orderDetailDTOS);
+                if (check) {
+                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+                }
+                this.iShoppingCartService.clearShoppingCart(customer.getId());
+                this.iOrderService.saveOrderByPayPal(orderDetailDTOS, customer);
+
+            } else {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-            this.iShoppingCartService.clearShoppingCart(customer.getId());
-            this.iOrderService.saveOrderByPayPal(orderDetailDTOS, customer);
-
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         }
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
 
     @PostMapping("/save-order")
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @Transactional
     public ResponseEntity<?> saveOrder(HttpServletRequest httpServletRequest, @RequestBody List<OrderDetailDTO> orderDetailDTOS) {
         String header = httpServletRequest.getHeader("Authorization");
-        if (!header.equals("") && header.startsWith("Bearer ")) {
+        if (header.startsWith("Bearer ")) {
             String token = header.substring(7);
             String username = jwtTokenUtil.getUsernameFromToken(token);
             Users users = iUsersService.findByUsername(username);
@@ -88,11 +88,11 @@ public class OrderRestController {
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     public ResponseEntity<?> getAllOrder(HttpServletRequest httpServletRequest, @RequestParam(value = "page", defaultValue = "0") Integer page) {
         String header = httpServletRequest.getHeader("Authorization");
-        if (!header.equals("") && header.startsWith("Bearer ")) {
+        if (header.startsWith("Bearer ")) {
             String token = header.substring(7);
             String username = jwtTokenUtil.getUsernameFromToken(token);
             Users users = iUsersService.findByUsername(username);
-            Customers customer = iCustomerService.getCustomerByUserId(users.getId()).get();
+            Customers customer = this.iCustomerService.getCustomerByUserId(users.getId()).get();
             Page<IOrderProjection> projectionPage = this.iOrderService.findAllOrder(PageRequest.of(page, 5), customer.getId());
             if (projectionPage.getTotalPages() < page) {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

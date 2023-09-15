@@ -1,7 +1,6 @@
 package com.example.trung_thien_technology.controller;
 
 import com.example.trung_thien_technology.projection.IProductProjection;
-import com.example.trung_thien_technology.projection.IShoppingCartProjection;
 import com.example.trung_thien_technology.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/admin/product")
@@ -20,15 +21,19 @@ public class ProductRestController {
 
     @GetMapping("/list")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Page<IShoppingCartProjection>> getAllProduct(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam("nameSearch")String nameSearch) {
-        Page<IShoppingCartProjection> products = iProductService.findAllProductAdmin(PageRequest.of(page, 5),nameSearch);
+    public ResponseEntity<Page<IProductProjection>> getAllProduct(@RequestParam(value = "page", defaultValue = "0") Integer page) {
+        Page<IProductProjection> products = this.iProductService.findAllProductAdmin(PageRequest.of(page, 5));
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<?> getAllProduct(@PathVariable(value = "id") Integer id) {
-        boolean check = iProductService.deleteProductById(id);
+    public ResponseEntity<?> deleteProduct(@PathVariable(value = "id") Integer id) {
+        Optional<IProductProjection> productProjection=this.iProductService.findProductById(id);
+        if (!productProjection.isPresent()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        boolean check = this.iProductService.deleteProductById(id);
         return new ResponseEntity<>(check, HttpStatus.OK);
     }
 }
